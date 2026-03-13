@@ -4,6 +4,9 @@ import jester
 import os, strutils
 import asyncdispatch
 
+type Game = object
+    name : string
+
 router rt:
     get "/highscore/@game":
         resp "Hi!"
@@ -14,5 +17,4 @@ proc main() =
     var jester = initJester(rt, settings=settings)
     jester.serve()
 
-when isMainModule:
-    main()
+dispatch main

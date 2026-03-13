@@ -13,3 +13,4 @@ bin           = @["xargs"]
 requires "nim >= 2.2.2"
 
 requires "jester >= 0.6.0"
+requires "cligen >= 1.9.6"
