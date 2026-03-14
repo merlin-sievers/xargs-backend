@@ -1,0 +1,5 @@
+highscore_dir = "./scores"
+
+[[games]]
+name = "roundround"
+max_highscores = 10
