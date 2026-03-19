@@ -68,23 +68,24 @@ struct ScoreSubmission {
 async fn submit_score(
     data: web::Data<AppState>,
     path: web::Path<String>,
-    form: web::Form<ScoreSubmission>,
+    payload: web::Json<ScoreSubmission>,
 ) -> impl Responder {
     let game = path.into_inner();
+    let submission = payload.into_inner();
 
     if !data.allowed_games.contains(&game) {
         error!("Requested unknown game {game}");
         return HttpResponse::BadRequest().body("unknown game");
     }
-    if form.i_realize_that_cheating_is_not_fun_and_ruins_fun_projects != "yes" {
+    if submission.i_realize_that_cheating_is_not_fun_and_ruins_fun_projects != "yes" {
         return HttpResponse::Forbidden().finish();
     }
 
     let game_config = data.config.games.iter().filter(|gc| gc.name == game).next().unwrap();
 
     let max_highscores = game_config.max_highscores;
-    let score_to_insert = form.score;
-    let name = form.name.clone();
+    let score_to_insert = submission.score;
+    let name = submission.name.clone();
 
     if name.len() != 4 {
         error!(
