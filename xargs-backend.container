@@ -1,0 +1,4 @@
+[Container]
+ContainerName=xargs-backend
+Image=localhost/xargs-backend:latest
+PublishPort=127.0.0.1:8484:8484
